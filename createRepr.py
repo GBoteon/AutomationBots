@@ -1,0 +1,31 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+nomeFunc = input("Insira o nome do colaborador: ")
+nomeRep = input("Insira o user o representante: ")
+
+chrome_options = Options()
+chrome_options.add_argument("--start-maximized")
+chrome_options.add_argument(r"user-data-dir=C:\Users\gustavo.boteon\AppData\Local\Google\Chrome\User Data\Bot")
+driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', options=chrome_options)
+driver.get("https://ensp-365-axprod.operations.dynamics.com/?cmp=001&mi=DefaultDashboard")
+print("pausa")
+time.sleep(10)
+print("volta")
+driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div/div/div[2]/div[2]').click()
+driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div/div[1]/div[2]/div[3]').click()
+print("pausa")
+time.sleep(5)
+print("volta")
+driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[5]/div/form[2]/div[2]/div/div[3]/button[1]').click()
+print("pausa")
+time.sleep(1)
+print("volta")
+driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DelegatingWorker_DirPerson_FK_Name_input"]').send_keys(nomeFunc)
+time.sleep(4)
+driver.find_element_by_xpath('//*[@id="HcmWorkerLookUp_3_OK"]').click()
+time.sleep(4)
+driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_editDelegateUser_input"]').send_keys(nomeRep)
+driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys("01/02/2021")
+driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateTo_input"]').send_keys("31/12/2099")
