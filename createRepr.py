@@ -1,5 +1,6 @@
 import pandas as pd
 import time
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -41,6 +42,8 @@ elif menu == 7:
     nomeRep = "gilglezia.oliveira"
 
 cont = 0
+data_e_hora_atuais = datetime.now()
+mes = data_e_hora_atuais.strftime("%m")
 execTime = time.perf_counter()
 
 chrome_options = Options()
@@ -94,7 +97,7 @@ finally:
         driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_editDelegateUser_input"]').send_keys(nomeRep)
         #DataIni
         #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys("01/02/2021")
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys("01/02/2021")
+        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys("01/" + mes + "/2021")
         driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys(Keys.TAB)
         #DataFim
         #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateTo_input"]').send_keys("31/12/2099")
