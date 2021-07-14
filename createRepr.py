@@ -51,65 +51,49 @@ chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument(r"user-data-dir=C:\\Users\\" + user + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default")
 driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', options=chrome_options)
 #driver.get("https://ensp-365-axprod.operations.dynamics.com/?cmp=001&mi=DefaultDashboard")
-driver.get("https://enesa-uat.sandbox.operations.dynamics.com/?cmp=001&mi=DefaultDashboard")
+driver.get("https://enesa-uat.sandbox.operations.dynamics.com/?cmp=001&mi=TrvApprEmplSub")
 time.sleep(12)
+
 try:
-    #Favoritos
-    #driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div/div/div[2]/div[2]').click()
-    driver.find_element_by_xpath('/html/body/div[2]/div/div[5]/div/div/div[2]/div[2]').click()
-    time.sleep(1)
-    #Representantes
-    #driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div/div[1]/div[2]/div[3]').click()
-    driver.find_element_by_xpath('/html/body/div[2]/div/div[5]/div/div[1]/div[2]/div[3]').click()
-    time.sleep(5)
-
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_QuickFilterControl_Input_input"]').click
 except:
-    print("Faça o login na plataforma para prosseguir")
-    val = input("Pressione ENTER para prosseguir")
-    #Favoritos
-    #driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div/div/div[2]/div[2]').click()
-    driver.find_element_by_xpath('//*[@id="navPaneFavoritesID"]').click()
+    input("Por favor efetue o login na plataforma\numa vez finalizado pressione ENTER")
+
+while (cont<nomes.size):
+    #Novo
+    #driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[5]/div/form[2]/div[2]/div/div[3]/button[1]').click()
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedNewButton"]').click()
+    time.sleep(2)
+    #InputNome
+    #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DelegatingWorker_DirPerson_FK_Name_input"]').send_keys(nomeFunc)
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DelegatingWorker_DirPerson_FK_Name_input"]').send_keys(nomes[cont])
+    time.sleep(2)
+    #Selecionar
+    try:
+        driver.find_element_by_xpath('//*[@id="HcmWorkerLookUp_' + str(cont + 2) + '_OK"]').click()
+    except:
+        driver.find_element_by_xpath('//*[@id="HcmWorkerLookUp_' + str(cont + 5) + '_OK"]').click()
+
     time.sleep(1)
-    #Representantes
-    #driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[4]/div/div[1]/div[2]/div[3]').click()
-    driver.find_element_by_xpath('//*[@id="mainPane"]/div[5]/div/div[1]/div[2]/div[3]').click()
-    time.sleep(5)
-
-finally:
-    while (cont<nomes.size):
-        #Novo
-        #driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[5]/div/form[2]/div[2]/div/div[3]/button[1]').click()
-        driver.find_element_by_xpath('/html/body/div[2]/div/div[6]/div/form[2]/div[2]/div/div[3]/button[1]').click()
-        time.sleep(2)
-        #InputNome
-        #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DelegatingWorker_DirPerson_FK_Name_input"]').send_keys(nomeFunc)
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DelegatingWorker_DirPerson_FK_Name_input"]').send_keys(nomes[cont])
-        time.sleep(2)
-        #Selecionar
-        try:
-            driver.find_element_by_xpath('//*[@id="HcmWorkerLookUp_' + str(cont + 3) + '_OK"]').click()
-        except:
-            driver.find_element_by_xpath('//*[@id="HcmWorkerLookUp_' + str(cont + 5) + '_OK"]').click()
-
-        time.sleep(1)
-        #InputRepresentante
-        #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_editDelegateUser_input"]').send_keys(nomeRep)
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_editDelegateUser_input"]').send_keys(nomeRep)
-        #DataIni
-        #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys("01/02/2021")
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys("01/" + mes + "/2021")
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys(Keys.TAB)
-        #DataFim
-        #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateTo_input"]').send_keys("31/12/2099")
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateTo_input"]').send_keys("31/12/2099")
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateTo_input"]').send_keys(Keys.TAB)
-        time.sleep(1)
-        #Salvar
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_2_SystemDefinedSaveButton"]').click()
-        time.sleep(1)
-        cont += 1
+    #InputRepresentante
+    #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_editDelegateUser_input"]').send_keys(nomeRep)
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_editDelegateUser_input"]').send_keys(nomeRep)
+    #DataIni
+    #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateFrom_input"]').send_keys("01/02/2021")
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DateFrom_input"]').send_keys("01/" + mes + "/2021")
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DateFrom_input"]').send_keys(Keys.TAB)
+    #DataFim
+    #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_DateTo_input"]').send_keys("31/12/2099")
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DateTo_input"]').send_keys("31/12/2099")
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DateTo_input"]').send_keys(Keys.TAB)
+    time.sleep(1)
+    #Salvar
+    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedSaveButton"]').click()
+    print("Cadastro do " + nomes[cont] + " efetuado, como representante " + nomeRep)
+    time.sleep(1)
+    cont += 1
         
 endTime = time.perf_counter() - execTime
-print("Processo finalizado com sucesso!\na Executção do progama demorou " + str(endTime) + " segundos")
+print("Processo finalizado com sucesso!\na Execução do progama demorou " + str(endTime) + " segundos")
 val = input("Pressione ENTER para finalizar o progama")
 driver.quit()
