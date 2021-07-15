@@ -6,8 +6,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 
 print("Bot para cadastro de Representantes")
-user = str(input("Digite seu user:\n"))
-planilha = str(input("Insira o caminho da planilha:\n"))
+user = "gustavo.boteon"#str(input("Digite seu user:\n"))
+planilha = "teste func.xlsx"#str(input("Insira o caminho da planilha:\n"))
 df = pd.read_excel(planilha)
 try:
     nomes = df.nome
