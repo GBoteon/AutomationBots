@@ -77,8 +77,9 @@ while True:
                     driver.find_element_by_xpath('//*[@id="HcmWorkerLookUp_' + str(subcont + 2) + '_OK"]').click()
                 except:
                     subcont += 1
+                    driver.find_element_by_xpath('//*[@id="HcmWorkerLookUp_' + str(subcont + 2) + '_OK"]').click()
 
-            time.sleep(1)
+            time.sleep(2)
             #InputRepresentante
             #driver.find_element_by_xpath('//*[@id="trvappremplsub_2_TrvAppEmplSub_editDelegateUser_input"]').send_keys(nomeRep)
             driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_editDelegateUser_input"]').send_keys(representantes[contNome])
@@ -98,7 +99,7 @@ while True:
             try:
                 driver.find_element_by_xpath('//*[@id="trvappremplsub_1_19"]/div[1]/button[2]').click()
                 print('tenta')
-                print("Cadastro do " + nomes[cont] + " como representante " + representantes[cont] + " fracassou!")
+                print("Cadastro do " + nomes[contNome] + " como representante " + representantes[contNome] + " fracassou!")
                 cadastro.append("NAO")
                 driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedDeleteButton"]').click()
 
@@ -111,14 +112,13 @@ while True:
                 except:
                     subcont += 1
                     driver.find_element_by_xpath('//*[@id="SysBoxForm_' + str(subcont + 2) + '_Close"]').click()
-                    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedDeleteButton"]').click()
                     print("Cadastro do " + nomes[contNome] + " como representante " + representantes[contNome] + " fracassou!")
                     cadastro.append("NAO")
+                    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedDeleteButton"]').click()
             contNome += 1
             cont += 1
             subcont += 1
 
-        driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedRefreshButton"]').click()
         df1 = pd.DataFrame({'nome': nomes, 'representante': representantes, 'cadastrado': cadastro})
         writer = pd.ExcelWriter(date, engine='xlsxwriter')
         df1.to_excel(writer, sheet_name='Sheet1', index=False)
