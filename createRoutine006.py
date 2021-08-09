@@ -19,14 +19,15 @@ chrome_options = Options()
 chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument(r"user-data-dir=C:\\Users\\" + user + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default")
 driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', options=chrome_options)
-#driver.get("https://ensp-365-axprod.operations.dynamics.com/?cmp=001&mi=DefaultDashboard")
-driver.get("https://enesa-uat.sandbox.operations.dynamics.com/?cmp=006&mi=TrvApprEmplSub")
+driver.get("https://ensp-365-axprod.operations.dynamics.com/?cmp=006&mi=TrvApprEmplSub")
+#driver.get("https://enesa-uat.sandbox.operations.dynamics.com/?cmp=006&mi=TrvApprEmplSub")
 time.sleep(12)
 
 try:
     driver.find_element_by_xpath('//*[@id="trvappremplsub_1_QuickFilterControl_Input_input"]').click
 except:
     input("Por favor efetue o login na plataforma\numa vez finalizado pressione ENTER")
+
 
 while True:
     try:
@@ -51,7 +52,6 @@ while True:
         data_e_hora_atuais = datetime.now()
         date = data_e_hora_atuais.strftime('Cadastro Representantes/logData/log-%d-%m-%y-%H-%M.xlsx')
         mes = data_e_hora_atuais.strftime("%m")
-        writer = pd.ExcelWriter(date, engine='xlsxwriter')
 
         planilha = planilha.split("\\")
 
@@ -97,7 +97,7 @@ while True:
             time.sleep(2)
 
             try:
-                driver.find_element_by_xpath('//*[@id="trvappremplsub_1_19"]/div[1]/button[2]').click()
+                driver.find_element_by_xpath('//*[@id="trvappremplsub_1_34"]/div[1]/button[1]').click()
                 print('tenta')
                 print("Cadastro do " + nomes[contNome] + " como representante " + representantes[contNome] + " fracassou!")
                 cadastro.append("NAO")

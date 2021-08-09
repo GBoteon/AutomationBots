@@ -1,2 +1,2 @@
-usuario
-gustavo.boteon
+usuario,registro
+gustavo.boteon,12
