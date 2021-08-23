@@ -50,13 +50,16 @@ while True:
 
         contNome = 0
         cadastro = []
+        nomeErros = []
+        reprErros =[]
         execTime = time.perf_counter()
         data_e_hora_atuais = datetime.now()
         date = data_e_hora_atuais.strftime('Cadastro Representantes/logData/log-%d-%m-%y-%H-%M.xlsx')
         mes = data_e_hora_atuais.strftime("%m")
+        erros = data_e_hora_atuais.strftime("Cadastro Representantes/Erros/erro-%d-%m-%y-%H-%M.xlsx")
 
         planilha = planilha.split("\\")
-
+        
         try:
             driver.find_element_by_xpath('//*[@id="trvappremplsub_1_QuickFilterControl_Input_input"]').click
         except:
@@ -144,18 +147,23 @@ while True:
                 print('tenta')
                 print("Cadastro do " + nomes[contNome] + " como representante " + representantes[contNome] + " fracassou!")
                 cadastro.append("NAO")
+                nomeErros.append(nomes[contNome])
+                reprErros.append(representantes[contNome])
                 driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedDeleteButton"]').click()             
             except:
                 try:
                     driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedOptions_button"]').click()
                     print("Cadastro do " + nomes[contNome] + " efetuado, como representante " + representantes[contNome])
                     cadastro.append("SIM")
+                    driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedOptions_button"]').click()
 
                 except:
                     subcont += 1
                     driver.find_element_by_xpath('//*[@id="SysBoxForm_' + str(subcont + 2) + '_Close"]').click()
                     print("Cadastro do " + nomes[contNome] + " como representante " + representantes[contNome] + " fracassou!")
                     cadastro.append("NAO")
+                    nomeErros.append(nomes[contNome])
+                    reprErros.append(representantes[contNome])
                     driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedDeleteButton"]').click()
             contNome += 1
             cont += 1
@@ -165,6 +173,12 @@ while True:
         writer = pd.ExcelWriter(date, engine='xlsxwriter')
         df1.to_excel(writer, sheet_name='Sheet1', index=False)
         writer.close()
+        if len(nomeErros) != 0:
+            df2 = pd.DataFrame({'nome': nomeErros, 'representante': reprErros})
+            writer2 = pd.ExcelWriter(erros, engine='xlsxwriter')
+            df2.to_excel(writer2, sheet_name='Sheet1', index=False)
+            writer2.close()
+            print("Log de erros: " + erros + " criado")
         print('Criado o log da operação: ' + date)
         print('Remoção do Excel: '+ arquivos[0])
         os.remove(str(arquivos[0]))
@@ -173,6 +187,9 @@ while True:
         print("Processo finalizado com sucesso!\na Execução da planilha demorou " + str(endTime) + " segundos")
 
     except:
+        driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedOptions_button"]').click()
         print("Aguardando planilha . . .")
+        time.sleep(1)
+        driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedOptions_button"]').click()
 
     time.sleep(30)

@@ -170,12 +170,15 @@ while True:
             subcont += 1
 
         df1 = pd.DataFrame({'nome': nomes, 'representante': representantes, 'cadastrado': cadastro})
-        df2 = pd.DataFrame({'nome': nomeErros, 'representante': reprErros})
         writer = pd.ExcelWriter(date, engine='xlsxwriter')
-        writer2 = pd.ExcelWriter(date, engine='xlsxwriter')
         df1.to_excel(writer, sheet_name='Sheet1', index=False)
-        df2.to_excel(writer2, sheet_name='Sheet1', index=False)
         writer.close()
+        if len(nomeErros) != 0:
+            df2 = pd.DataFrame({'nome': nomeErros, 'representante': reprErros})
+            writer2 = pd.ExcelWriter(erros, engine='xlsxwriter')
+            df2.to_excel(writer2, sheet_name='Sheet1', index=False)
+            writer2.close()
+            print("Log de erros: " + erros + " criado")
         print('Criado o log da operação: ' + date)
         print('Remoção do Excel: '+ arquivos[0])
         os.remove(str(arquivos[0]))

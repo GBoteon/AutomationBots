@@ -1,4 +1,4 @@
 usuario,registro
-gustavo.boteon,12
-19,
+gustavo.boteon,0
+19,0
 1,
