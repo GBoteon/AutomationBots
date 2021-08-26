@@ -37,21 +37,32 @@ while True:
     if registro != sizelist:
         data_e_hora_atuais = datetime.now()
         cloud = data_e_hora_atuais.strftime('C:\\Users\\' + user + '\\Desktop\\UAT - 001 Cadastro de Representantes\\Cadastro Representantes\\Entrada\\cloud001-%d-%m-%y-%H-%M.xlsx')
+        cloud4 = data_e_hora_atuais.strftime('C:\\Users\\' + user + '\\Desktop\\AX - 001 Cadastro de Representantes\\Cadastro Representantes\\Entrada\\cloud001-%d-%m-%y-%H-%M.xlsx')
         df = pd.DataFrame({'nome': nomesNuvem[registro:sizelist], 'representante': representantesNuvem[registro:sizelist]})
+        df4 = pd.DataFrame({'nome': nomesNuvem[registro:sizelist], 'representante': representantesNuvem[registro:sizelist]})
         writer = pd.ExcelWriter(cloud, engine='xlsxwriter')
+        writer4 = pd.ExcelWriter(cloud4, engine='xlsxwriter')
         df.to_excel(writer, sheet_name='Sheet1', index=False)
+        df4.to_excel(writer4, sheet_name='Sheet1', index=False)
         writer.close()
+        writer4.close()
         
     elif registro2 != sizelist2:
         data_e_hora_atuais = datetime.now()
         cloud2 = data_e_hora_atuais.strftime('C:\\Users\\' + user + '\\Desktop\\UAT - 006 Cadastro de Representantes\\Cadastro Representantes\\Entrada\\cloud006-%d-%m-%y-%H-%M.xlsx')
+        cloud3 = data_e_hora_atuais.strftime('C:\\Users\\' + user + '\\Desktop\\AX - 006 Cadastro de Representantes\\Cadastro Representantes\\Entrada\\cloud006-%d-%m-%y-%H-%M.xlsx')
         df2 = pd.DataFrame({'nome': nomesNuvem2[registro2:sizelist2], 'representante': representantesNuvem2[registro2:sizelist2]})
+        df3 = pd.DataFrame({'nome': nomesNuvem2[registro2:sizelist2], 'representante': representantesNuvem2[registro2:sizelist2]})
         writer2 = pd.ExcelWriter(cloud2, engine='xlsxwriter')
+        writer3 = pd.ExcelWriter(cloud3, engine='xlsxwriter')
         df2.to_excel(writer2, sheet_name='Sheet1', index=False)
+        df3.to_excel(writer3, sheet_name='Sheet1', index=False)
         writer2.close()
+        writer3.close()
         
     usuar.registro = [len(nomesNuvem), len(nomesNuvem2), ""]
     usuar.to_csv('usuario.txt', index=False)
 
     print("Aguardando inserção de dados...")
     time.sleep(60)
+    
