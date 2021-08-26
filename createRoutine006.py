@@ -11,6 +11,7 @@ txt = user.usuario
 user = str(txt[0])
 n1 = int(txt[1])
 n2 = int(txt[2])
+link = str(txt[3])
 x = True
 cont = 0
 subcont = 0
@@ -22,8 +23,7 @@ chrome_options = Options()
 chrome_options.add_argument("--start-maximized")
 chrome_options.add_argument(r"user-data-dir=C:\\Users\\" + user + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default")
 driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', options=chrome_options)
-#driver.get("https://ensp-365-axprod.operations.dynamics.com/?cmp=006&mi=TrvApprEmplSub")
-driver.get("https://enesa-uat.sandbox.operations.dynamics.com/?cmp=006&mi=TrvApprEmplSub")
+driver.get("https://" + link + "/?cmp=006&mi=TrvApprEmplSub")
 time.sleep(12)
 
 try:
