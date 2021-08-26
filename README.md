@@ -9,3 +9,4 @@ Criadas para estarem operando por tempo inderteminado mas no entanto há pontos 
  - O Executavel UpdateFromOneDrive é responsavel por ler e criar arquivos de entrada da pasta do OneDrive e também utiliza o usuario do windows
  - Caso haja necessidade de excluir um registro no navegador será necessario rebootar o progama para que seja executado corretamente
  - Cada execução de um arquivo de entrada gera um log informando quais cadastros foram executados e quais falharam, em casos de erro ele também ira gerar uma planinha com os não cadastrados para uma outra tentativa ao serem inseridos na pasta de entrada uma segunda vez
+ - O programa pode executar tanto no UAT quanto no AX bastanto alterar o link que esta na 4° linha da coluna usuario do usuario.txt entre enesa-uat.sandbox.operations.dynamics.com e ensp-365-axprod.operations.dynamics.com.
