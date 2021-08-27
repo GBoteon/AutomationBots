@@ -128,7 +128,7 @@ while True:
             driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedNewButton"]').click()
             time.sleep(2)
             #Inserir nome colaborador InputNome
-            driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DelegatingWorker_DirPerson_FK_Name_input"]').send_keys(nomes[contNome].strip())
+            driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DelegatingWorker_DirPerson_FK_Name_input"]').send_keys(nomes[contNome].strip().upper())
             time.sleep(2)
             #Pressionar Selecionar
             try:
@@ -142,7 +142,7 @@ while True:
 
             time.sleep(2)
             #Inserir nome representante InputRepresentante
-            driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_editDelegateUser_input"]').send_keys(representantes[contNome].strip())
+            driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_editDelegateUser_input"]').send_keys(representantes[contNome].strip().lower())
             #Inserir Data Inicio
             driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DateFrom_input"]').send_keys("01/" + mes + "/2021")
             driver.find_element_by_xpath('//*[@id="trvappremplsub_1_TrvAppEmplSub_DateFrom_input"]').send_keys(Keys.TAB)
@@ -207,6 +207,24 @@ while True:
         #Pressiona o botão opções para impedir a desconexão por inatividade
         driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedOptions_button"]').click()
         print("Aguardando planilha . . .")
+        logs = files_path("Cadastro Representantes/logData")
+
+        for lista in range(len(logs)):
+            planilha = logs[lista].split("\\")
+            planilha = planilha[len(planilha)-1]
+
+            dia = int(planilha[4] + planilha[5])
+            mes = int(planilha[7] + planilha[8])
+            ano = int("20" + planilha[10] + planilha[11])
+
+            data_arquivo = datetime(ano, mes, dia)
+
+            data_e_hora_atuais = datetime.now()
+
+            diferença = data_e_hora_atuais - data_arquivo
+
+            if diferença.days > 2:
+                os.remove(str(logs[lista]))
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedOptions_button"]').click()
 

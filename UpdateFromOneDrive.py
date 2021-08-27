@@ -60,7 +60,7 @@ while True:
         writer2.close()
         writer3.close()
         
-    usuar.registro = [len(nomesNuvem), len(nomesNuvem2), ""]
+    usuar.registro = [len(nomesNuvem), len(nomesNuvem2), "enesa-uat.sandbox.operations.dynamics.com", "ensp-365-axprod.operations.dynamics.com"]
     usuar.to_csv('usuario.txt', index=False)
 
     print("Aguardando inserção de dados...")
