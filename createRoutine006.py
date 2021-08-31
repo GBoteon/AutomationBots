@@ -6,8 +6,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 
-user = pd.read_csv('usuario.txt')
-txt = user.usuario
+usuar = pd.read_csv('C:\\Users\\ti.lcs\\Desktop\\AutomationBots\\usuario.txt')
+txt = usuar.usuario
 user = str(txt[0])
 n1 = int(txt[1])
 n2 = int(txt[2])
@@ -21,7 +21,7 @@ def files_path(path):
 
 chrome_options = Options()
 chrome_options.add_argument("--start-maximized")
-chrome_options.add_argument(r"user-data-dir=C:\\Users\\" + user + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default")
+chrome_options.add_argument(r"user-data-dir=C:\\Users\\" + user + "\\AppData\\Local\\Google\\Chrome\\User Data\\" + str(usuar.registro[4]))
 driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', options=chrome_options)
 driver.get("https://" + link + "/?cmp=006&mi=TrvApprEmplSub")
 time.sleep(12)
@@ -68,9 +68,8 @@ while True:
         except:
             input("Por favor efetue o login na plataforma\numa vez finalizado pressione ENTER")
 
-        '''
-        Essa Primeira seção força uma entrada errada para gerar os elemntos HTML do botão collapse para o auxilio de futuros erros
-        '''
+        
+#Essa Primeira seção força uma entrada errada para gerar os elementos HTML do botão collapse para o auxilio de futuros erros
 
         #Pressionar Novo
         driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedNewButton"]').click()
@@ -115,14 +114,15 @@ while True:
                         n1 = 19
                         n2 = 2
         finally:
+            #Pressionar Delete
             driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedDeleteButton"]').click()
             cont += 1
             subcont += 1
         
-        '''
-        Fim da Primeira seção
-        '''
-        #loop de execução dos registros
+#Fim da Primeira seção
+        
+#Loop de execução dos registros
+
         while (contNome<nomes.size):
             #Pressionar Novo
             driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedNewButton"]').click()
@@ -178,7 +178,7 @@ while True:
                     cadastro.append("NAO")
                     nomeErros.append(nomes[contNome])
                     reprErros.append(representantes[contNome])
-                    #Deleta a lina do colaborador
+                    #Deleta a linha do colaborador
                     driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedDeleteButton"]').click()
             contNome += 1
             cont += 1
@@ -209,6 +209,7 @@ while True:
         print("Aguardando planilha . . .")
         logs = files_path("Cadastro Representantes/logData")
 
+        #For para deletar logs com mais de dois 2 dias de criação
         for lista in range(len(logs)):
             planilha = logs[lista].split("\\")
             planilha = planilha[len(planilha)-1]
@@ -222,10 +223,12 @@ while True:
             data_e_hora_atuais = datetime.now()
 
             diferença = data_e_hora_atuais - data_arquivo
-
+            #Caso queira alterar a quantidade de dias mudar o número
             if diferença.days > 2:
                 os.remove(str(logs[lista]))
         time.sleep(1)
         driver.find_element_by_xpath('//*[@id="trvappremplsub_1_SystemDefinedOptions_button"]').click()
 
     time.sleep(30)
+
+#Fim do loop
